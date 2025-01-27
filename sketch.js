@@ -1,20 +1,39 @@
 let resultDiv;
+let consoleDiv;
 let img;
 const classifier = ml5.imageClassifier('MobileNet', modelReady);
+
+// Override console.log to display messages on the webpage
+(function () {
+  const originalLog = console.log;
+  console.log = function (...args) {
+    originalLog.apply(console, args); // Keep original console.log functionality
+    if (consoleDiv) {
+      args.forEach(arg => {
+        consoleDiv.html(consoleDiv.html() + arg + '<br>', true);
+      });
+    }
+  };
+})();
 
 function setup() {
   noCanvas();
 
-  resultDiv = select('#result');
-  resultDiv.html('Loading model...');
+  // Create result and console divs
+  resultDiv = createDiv('Loading model...');
+  resultDiv.id('result');
+  
+  consoleDiv = createDiv('');
+  consoleDiv.id('console');
+  consoleDiv.html('<strong>Console Output:</strong><br>');
+  
+  // Load the image
   img = createImg('bird.png', imageLoaded);
-
 }
 
 function modelReady() {
   console.log('Model Loaded!');
   resultDiv.html('Classifying the image...');
-
   classifyImage(img);
 }
 
@@ -30,7 +49,9 @@ function classifyImage(img) {
       return;
     }
 
+    // Convert the results array to JSON and display it
     const resultsJSON = JSON.stringify(results, null, 2);
     resultDiv.html(`<pre>${resultsJSON}</pre>`);
+    console.log('Classification results:', results);
   });
 }
