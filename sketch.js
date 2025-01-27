@@ -30,6 +30,11 @@ function classifyImage(img) {
       resultDiv.html('Error classifying the image.');
       return;
     }
+    
+    console.log(results);
+
+    console.log(results[0].label);
+    console.log(results[0].confidence);
 
     const label = results[0].label;
     const confidence = nf(results[0].confidence, 0, 2);
