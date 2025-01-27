@@ -7,6 +7,7 @@ function setup() {
 
   resultDiv = select('#result');
   resultDiv.html('Loading model...');
+  img = createImg('bird.png', imageLoaded);
 
 }
 
