@@ -1,6 +1,10 @@
 let resultDiv;
 let img;
-const classifier = ml5.imageClassifier('MobileNet', modelReady);
+const classifier = ml5.imageClassifier('MobileNet', () => {
+  console.log('Model Loaded!');
+  resultDiv.html('Classifying the image...');
+  classifyImage(img);
+});
 
 function setup() {
   noCanvas();
@@ -9,14 +13,6 @@ function setup() {
   resultDiv.html('Loading model...');
 
   img = createImg('bird.png', imageLoaded);
-
-}
-
-function modelReady() {
-  console.log('Model Loaded!');
-  resultDiv.html('Classifying the image...');
-  
-  classifyImage(img);
 }
 
 function imageLoaded() {
@@ -26,14 +22,14 @@ function imageLoaded() {
 function classifyImage(img) {
   classifier.classify(img, (err, results) => {
     if (err) {
-      console.error(err);
-      resultDiv.html('Error classifying the image.');
+      console.error('Error during classification:', err);
+      resultDiv.html('Error classifying the image. Please try again.');
       return;
     }
 
     const label = results[0].label;
     const confidence = nf(results[0].confidence, 0, 2);
-    
+
     resultDiv.html(`Label: ${label} <br> Confidence: ${confidence}`);
   });
 }
