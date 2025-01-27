@@ -6,11 +6,9 @@ const classifier = ml5.imageClassifier('MobileNet', modelReady);
 function setup() {
   noCanvas();
 
-  // Select the result div to show the classification result
   resultDiv = select('#result');
   resultDiv.html('Classifying the image...');
 
-  // Create an image element
   img = createImg('bird.png', 'Bird Image', imageLoaded);
   img.size(200, AUTO);
   img.position(10, 10);
