@@ -7,8 +7,11 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(400, 400);
-    image(img, 0, 0, width, height); 
+    let canvas = createCanvas(400, 400);
+    canvas.parent('canvas-container'); 
+    
+    image(img, 0, 0, width, height);
+    
     classifier.classify(img, gotResult); 
 }
 
@@ -18,9 +21,10 @@ function gotResult(error, results) {
         return;
     }
     console.log(results);
+
+    let label = results[0].label;
+    let confidence = nf(results[0].confidence, 0, 2);
   
-    fill(255);
-    textSize(18);
-    text("Label: " + results[0].label, 10, height - 40);
-    text("Confidence: " + nf(results[0].confidence, 0, 2), 10, height - 20);
+    select('#label').html('Label: ' + label);
+    select('#confidence').html('Confidence: ' + confidence);
 }
