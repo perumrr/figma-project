@@ -7,20 +7,20 @@ function setup() {
   noCanvas();
 
   resultDiv = select('#result');
-  resultDiv.html('Classifying the image...');
+  resultDiv.html('Loading model and image...');
 
-  img = createImg('bird.png', 'Bird Image', imageLoaded);
-  img.size(200, AUTO);
-  img.position(10, 10);
+  img = createImg('bird.png', imageLoaded);
 }
 
 function modelReady() {
   console.log('Model Loaded!');
+  resultDiv.html('Model loaded! Now, classifying the image...');
+  
+  classifyImage(img);
 }
 
 function imageLoaded() {
   console.log('Image loaded successfully.');
-  classifyImage(img);
 }
 
 function classifyImage(img) {
