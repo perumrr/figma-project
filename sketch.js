@@ -1,21 +1,20 @@
-
-let classifier;
 let resultDiv;
 
-const classifier = ml5.imageClassifier('MobileNet');
-
-function preload() {
-  classifier = ml5.imageClassifier(modelURL + 'model.json');
-}
+const classifier = ml5.imageClassifier('MobileNet', modelReady);
 
 function setup() {
   noCanvas(); 
+
   resultDiv = createDiv('Classifying the image...');
   resultDiv.position(10, 50);
 
   const img = createImg('bird.png', '', '', () => classifyImage(img));
   img.size(200, AUTO); 
   img.position(10, 10);
+}
+
+function modelReady() {
+  console.log('Model Loaded!');
 }
 
 function classifyImage(img) {
