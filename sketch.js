@@ -25,12 +25,6 @@ function imageLoaded() {
 
 function classifyImage(img) {
   classifier.classify(img, (err, results) => {
-    if (err) {
-      console.error(err);
-      resultDiv.html('Error classifying the image.');
-      return;
-    }
-    
     console.log(results);
 
     console.log(results[0].label);
@@ -40,5 +34,13 @@ function classifyImage(img) {
     const confidence = nf(results[0].confidence, 0, 2);
     
     resultDiv.html(`Label: ${label} <br> Confidence: ${confidence}`);
+    
+    if (err) {
+      console.error(err);
+      resultDiv.html('Error classifying the image.');
+      return;
+    }
+    
+    
   });
 }
