@@ -1,4 +1,5 @@
 let resultDiv;
+let img;
 
 const classifier = ml5.imageClassifier('MobileNet', modelReady);
 
@@ -8,8 +9,8 @@ function setup() {
   resultDiv = createDiv('Classifying the image...');
   resultDiv.position(10, 50);
 
-  const img = createImg('bird.png', '', '', () => classifyImage(img));
-  img.size(200, AUTO); 
+  img = createImg('bird.png', '', '', () => classifyImage(img));
+  img.size(200, AUTO);
   img.position(10, 10);
 }
 
