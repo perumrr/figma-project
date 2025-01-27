@@ -9,13 +9,18 @@ function setup() {
   resultDiv = createDiv('Classifying the image...');
   resultDiv.position(10, 50);
 
-  img = createImg('bird.png', '', '', () => classifyImage(img));
+  img = createImg('bird.png', 'Bird Image', imageLoaded);
   img.size(200, AUTO);
   img.position(10, 10);
 }
 
 function modelReady() {
   console.log('Model Loaded!');
+}
+
+function imageLoaded() {
+  console.log('Image loaded successfully.');
+  classifyImage(img);
 }
 
 function classifyImage(img) {
