@@ -49,9 +49,8 @@ function classifyImage(img) {
       return;
     }
 
-    // Convert the results array to JSON and display it
-    const resultsJSON = JSON.stringify(results, null, 2);
-    resultDiv.html(`<pre>${resultsJSON}</pre>`);
-    console.log('Classification results:', results);
+    console.log('Classification Results:', results);
+
+    resultDiv.html(`<pre>${JSON.stringify(results, null, 2)}</pre>`);
   });
 }
