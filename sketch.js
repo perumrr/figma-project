@@ -8,7 +8,6 @@ function setup() {
   resultDiv = createDiv('Loading model...');
   resultDiv.id('result');
 
-  img = createImg('bird.png', imageLoaded);
 }
 
 function modelReady() {
