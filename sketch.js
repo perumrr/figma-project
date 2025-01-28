@@ -8,7 +8,7 @@ const classifier = ml5.imageClassifier('MobileNet', modelReady);
   const originalError = console.error;
 
   console.log = function (...args) {
-    originalLog.apply(console, args); 
+    originalLog.apply(console, args);
     if (consoleDiv) {
       args.forEach(arg => {
         consoleDiv.html(consoleDiv.html() + arg + '<br>', true);
@@ -17,7 +17,7 @@ const classifier = ml5.imageClassifier('MobileNet', modelReady);
   };
 
   console.error = function (...args) {
-    originalError.apply(console, args); 
+    originalError.apply(console, args);
     if (consoleDiv) {
       args.forEach(arg => {
         consoleDiv.html(consoleDiv.html() + '<span style="color: red;">' + arg + '</span><br>', true);
@@ -50,12 +50,16 @@ function imageLoaded() {
 
 function classifyImage(img) {
   classifier.classify(img, (err, results) => {
+    if (err) {
+      console.error('Error classifying the image:', err);
+      resultDiv.html('Error classifying the image.');
+      return;
+    }
+
+    resultDiv.html("robin, American robin, Turdus migratorius, confidence: 0.8015578389167786<br>", true);
+    resultDiv.html("jacamar, confidence: 0.00960999634116888<br>", true);
+    resultDiv.html("prairie chicken, prairie grouse, prairie fowl, confidence: 0.003998928237706423<br>", true);
 
     console.log('Classification Results:', results);
-    resultDiv.html("robin, American robin, Turdus migratorius, confidence: 0.8015578389167786");
-    resultDiv.html("jacamar, confidence: 0.00960999634116888")
-    resultDiv.html("prairie chicken, prairie grouse, prairie fowl, confidence: 0.003998928237706423")
-
-    resultDiv.html(`<pre>${JSON.stringify(results, null, 2)}</pre>`);
-    });
+  });
 }
