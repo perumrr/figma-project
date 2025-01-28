@@ -12,7 +12,7 @@ function setup() {
 
 function modelReady() {
   console.log('Model Loaded!');
-  resultDiv.html('Model Loaded!<br>Classifying the image...');
+  resultDiv.html('Model Loaded!<br>Classifying the image...<br>');
   classifyImage(img);
 }
 
