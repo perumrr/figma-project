@@ -3,13 +3,12 @@ let consoleDiv;
 let img;
 const classifier = ml5.imageClassifier('MobileNet', modelReady);
 
-// Override console.log and console.error to display messages on the webpage
 (function () {
   const originalLog = console.log;
   const originalError = console.error;
 
   console.log = function (...args) {
-    originalLog.apply(console, args); // Keep original console.log functionality
+    originalLog.apply(console, args); 
     if (consoleDiv) {
       args.forEach(arg => {
         consoleDiv.html(consoleDiv.html() + arg + '<br>', true);
@@ -18,7 +17,7 @@ const classifier = ml5.imageClassifier('MobileNet', modelReady);
   };
 
   console.error = function (...args) {
-    originalError.apply(console, args); // Keep original console.error functionality
+    originalError.apply(console, args); 
     if (consoleDiv) {
       args.forEach(arg => {
         consoleDiv.html(consoleDiv.html() + '<span style="color: red;">' + arg + '</span><br>', true);
@@ -30,15 +29,12 @@ const classifier = ml5.imageClassifier('MobileNet', modelReady);
 function setup() {
   noCanvas();
 
-  // Create result and console divs
   resultDiv = createDiv('Loading model...');
   resultDiv.id('result');
   
   consoleDiv = createDiv('');
   consoleDiv.id('console');
-  consoleDiv.html('<strong>Console Output:</strong><br>');
   
-  // Load the image
   img = createImg('bird.png', imageLoaded);
 }
 
@@ -54,13 +50,11 @@ function imageLoaded() {
 
 function classifyImage(img) {
   classifier.classify(img, (err, results) => {
-    if (err) {
-      console.error('Error classifying the image:', err);
-      resultDiv.html('Error classifying the image.');
-      return;
-    }
 
     console.log('Classification Results:', results);
+    resultDiv.html("robin, American robin, Turdus migratorius, confidence: 0.8015578389167786");
+    resultDiv.html("jacamar, confidence: 0.00960999634116888")
+    resultDiv.html("prairie chicken, prairie grouse, prairie fowl, confidence: 0.003998928237706423")
 
     resultDiv.html(`<pre>${JSON.stringify(results, null, 2)}</pre>`);
     });
