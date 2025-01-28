@@ -63,5 +63,5 @@ function classifyImage(img) {
     console.log('Classification Results:', results);
 
     resultDiv.html(`<pre>${JSON.stringify(results, null, 2)}</pre>`);
-  });
+    });
 }
