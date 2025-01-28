@@ -1,7 +1,7 @@
 # figma-project
 sample: https://capable-khapse-481ed1.netlify.app/
 
-# step by step
+# Step by Step
 use ml5 in your HTML document:
 
 <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js" type="text/javascript"></script>
