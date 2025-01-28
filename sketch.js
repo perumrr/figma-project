@@ -3,14 +3,25 @@ let consoleDiv;
 let img;
 const classifier = ml5.imageClassifier('MobileNet', modelReady);
 
-// Override console.log to display messages on the webpage
+// Override console.log and console.error to display messages on the webpage
 (function () {
   const originalLog = console.log;
+  const originalError = console.error;
+
   console.log = function (...args) {
     originalLog.apply(console, args); // Keep original console.log functionality
     if (consoleDiv) {
       args.forEach(arg => {
         consoleDiv.html(consoleDiv.html() + arg + '<br>', true);
+      });
+    }
+  };
+
+  console.error = function (...args) {
+    originalError.apply(console, args); // Keep original console.error functionality
+    if (consoleDiv) {
+      args.forEach(arg => {
+        consoleDiv.html(consoleDiv.html() + '<span style="color: red;">' + arg + '</span><br>', true);
       });
     }
   };
@@ -44,7 +55,7 @@ function imageLoaded() {
 function classifyImage(img) {
   classifier.classify(img, (err, results) => {
     if (err) {
-      console.error(err);
+      console.error('Error classifying the image:', err);
       resultDiv.html('Error classifying the image.');
       return;
     }
